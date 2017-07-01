@@ -21,13 +21,23 @@ export class HeroesComponent implements OnInit {
     private router: Router
   ) {}
 
+  add(name: string): void {
+    name= name.trim();
+    if (!name) { return; }
+    this.heroService.create(name)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+        this.selectedHero = null;
+      });
+  }
+
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedHero.id]);
   }
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
-  };
+  }
 
   getHeroes(): void {
     this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
