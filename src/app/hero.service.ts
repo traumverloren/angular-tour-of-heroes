@@ -34,6 +34,13 @@ export class HeroService {
       .catch(this.handleError);
   }
 
+  delete(id: number): Observable<Hero> {
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.delete(url, {headers: this.headers})
+      .map(() => null)
+      .catch(this.handleError)
+  }
+
   update(hero: Hero): Observable<Hero> {
     const url = `${this.heroesUrl}/${hero.id}`;
     return this.http
